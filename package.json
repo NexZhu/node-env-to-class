@@ -1,0 +1,48 @@
+{
+  "name": "@daotl/ts-lib-starter",
+  "version": "0.2.0",
+  "description": "TypeScript Library Starter for DAOT projects",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src/**/*.ts --fix",
+    "build": "tsup src/**/!(*.test).ts --dts --format esm,cjs",
+    "pub": "npm run lint && npm run test && npm run build && npm publish --access public",
+    "prepare": "husky install"
+  },
+  "prettier": "@daotl/prettier-config",
+
+  "devDependencies": {
+    "@daotl/eslint-config": "^0.1.2",
+    "@daotl/tsconfig": "^0.0.4",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.13",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.1.2",
+    "ts-jest": "^27.0.4",
+    "ts-node": "^10.2.0",
+    "tsup": "^4.13.1",
+    "typescript": "^4.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daotl/ts-lib-starter.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "library"
+  ],
+  "author": "Nex Zhu <hitnexup@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daotl/ts-lib-starter/issues"
+  },
+  "homepage": "https://github.com/daotl/ts-lib-starter#readme"
+}

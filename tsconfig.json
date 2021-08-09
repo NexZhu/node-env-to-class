@@ -1,0 +1,6 @@
+{
+  "extends": "@daotl/tsconfig/node.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+  }
+}
