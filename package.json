@@ -1,7 +1,7 @@
 {
-  "name": "@daotl/ts-lib-starter",
-  "version": "0.2.0",
-  "description": "TypeScript Library Starter for DAOT projects",
+  "name": "env-to-class",
+  "version": "0.1.0",
+  "description": "Load process.env into class instance by convention",
   "files": [
     "dist"
   ],
@@ -11,17 +11,19 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint src/**/*.ts --fix",
-    "build": "tsup src/**/!(*.test).ts --dts --format esm,cjs",
+    "build": "tsup src/**/!(*.test).ts",
     "pub": "npm run lint && npm run test && npm run build && npm publish --access public",
     "prepare": "husky install"
   },
   "prettier": "@daotl/prettier-config",
-
   "devDependencies": {
-    "@daotl/eslint-config": "^0.1.2",
+    "@anatine/esbuild-decorators": "^0.2.17",
+    "@daotl/eslint-config": "^0.1.5",
     "@daotl/tsconfig": "^0.0.4",
+    "@types/decamelize": "^3.0.3",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.13",
+    "decamelize": "^5.0.0",
     "eslint": "^7.32.0",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
@@ -42,7 +44,12 @@
   "author": "Nex Zhu <hitnexup@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/daotl/ts-lib-starter/issues"
+    "url": "https://github.com/NexZhu/node-env-to-class/issues"
   },
-  "homepage": "https://github.com/daotl/ts-lib-starter#readme"
+  "homepage": "https://github.com/NexZhu/node-env-to-class#readme",
+  "dependencies": {
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "reflect-metadata": "^0.1.13"
+  }
 }

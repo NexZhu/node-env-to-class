@@ -1,34 +1,149 @@
-# ts-lib-starter
+# env-to-class
 
-TypeScript Library Starter for DAOT projects
+Load `process.env` into class instance by convention
+
+## Example classes and corresponding environment variable names that will be loaded
+
+```typescript
+class Nested {
+   @IsString()
+   foo: string // QUX_FOO
+
+   @IsInt()
+   barBaz: number // QUX_BAR_BAZ
+}
+
+class Cls {
+   @ValidateNested
+   qux: Nested = new Nested() 
+
+   @IsBoolean()
+   quux: boolean // QUUX
+}
+```
+
+## Install
+
+1. Install this package:
+
+   `npm install -S node-env-to-class`
+
+2. `reflect-metadata` shim is required, install it too:
+
+   `npm install reflect-metadata --save`
+
+   and make sure to import it in a global place, like app.ts:
+
+   ```typescript
+   import 'reflect-metadata';
+   ```
+
+3. ES6 features are used, if you are using old version of node.js you may need to install es6-shim:
+
+   `npm install -S es6-shim`
+
+   and import it in a global place like app.ts:
+
+   ```typescript
+   import 'es6-shim';
+   ```
 
 ## Usage
 
-Modify [package.json]().
+Define the classes and annotate with [class-validator](https://github.com/typestack/class-validator) type decorators:
 
-Commit changes with [Commitizen](https://commitizen.github.io/cz-cli/):
-```shell
-npx cz
+```typescript
+import {
+   IsBoolean,
+   IsInt,
+   IsNumber,
+   IsString,
+   ValidateNested,
+} from 'class-validator'
+
+class Nested {
+   @IsString()
+   str: string = 'str-default'
+
+   @IsInt()
+   int: number = 123
+
+   @IsNumber()
+   float: number = 0.123
+
+   @IsBoolean()
+   bool: boolean = true
+}
+
+class Parent {
+   @IsString()
+   strParent!: string
+
+   @IsInt()
+   intParent!: number
+
+   @IsNumber()
+   floatParent: number = 0.321
+
+   @IsBoolean()
+   boolParent = false
+
+   @ValidateNested()
+   nestedParent: Nested = new Nested()
+}
+
+class Child extends Parent {
+   @IsString()
+   strChild: string = 'str-child-default'
+
+   @IsInt()
+   intChild: number = 321
+
+   @IsNumber()
+   floatChild!: number
+
+   @IsBoolean()
+   boolChild!: boolean
+
+   @ValidateNested()
+   nestedChild: Nested = new Nested()
+}
 ```
 
-Or still use `git commit` and follow [the Conventional Commits spec](https://www.conventionalcommits.org/en/v1.0.0/#summary), your commits will be linted before accepted.
+> Note that both the TypeScript type annotations and the `class-validator` decorators are required.
 
-To run `Jest` test:
-```shell
-npm run test
+Then use `envToClass` to load `process.env` into a class instance:
+
+```typescript
+const [errs, c] = envToClass(Child)
+if (errs.length) {
+  console.log('Validation error:', errs)
+} else {
+  console.log('Loaded class:', c)
+}
 ```
 
-To lint with `ESLint`:
-```shell
-npm run lint
+Set the `envPrefix` option to load from prefixed environment variable names such as `PREFIX_ENV_NAME`:
+
+```typescript
+const [errs, c] = envToClass(Child, undefined, { envPrefix: 'PREFIX' })
 ```
 
-To build with `tsup`:
-```shell
-npm run build
+`classToEnv` will override the existing values in the supplied class instance or the default values in the new class instance by default. To keep the existing values, set the `overrideExistingValues` option to `true`:
+
+```typescript
+const [errs, c] = envToClass(Child, undefined, {
+   overrideExistingValues: false,
+})
+if (errs.length) {
+  console.log('Validation error:', errs)
+} else {
+  console.log('Loaded class:', c)
+}
 ```
 
-To publish to npm:
-```shell
-npm run pub
-```
+See [Options](src/impl.ts) for all the options.
+
+## license
+
+MIT © Nex Zhu

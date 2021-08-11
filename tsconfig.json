@@ -1,6 +1,9 @@
 {
   "extends": "@daotl/tsconfig/node.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "src"
   }
 }
