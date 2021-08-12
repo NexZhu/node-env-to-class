@@ -1,6 +1,6 @@
 {
   "name": "env-to-class",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Load process.env into class instance by convention",
   "files": [
     "dist"
@@ -16,6 +16,12 @@
     "prepare": "husky install"
   },
   "prettier": "@daotl/prettier-config",
+  "dependencies": {
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "decamelize": "^5.0.0",
+    "reflect-metadata": "^0.1.13"
+  },
   "devDependencies": {
     "@anatine/esbuild-decorators": "^0.2.17",
     "@daotl/eslint-config": "^0.1.5",
@@ -23,7 +29,6 @@
     "@types/decamelize": "^3.0.3",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.13",
-    "decamelize": "^5.0.0",
     "eslint": "^7.32.0",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
@@ -46,10 +51,5 @@
   "bugs": {
     "url": "https://github.com/NexZhu/node-env-to-class/issues"
   },
-  "homepage": "https://github.com/NexZhu/node-env-to-class#readme",
-  "dependencies": {
-    "class-transformer": "^0.4.0",
-    "class-validator": "^0.13.1",
-    "reflect-metadata": "^0.1.13"
-  }
+  "homepage": "https://github.com/NexZhu/node-env-to-class#readme"
 }
