@@ -32,7 +32,8 @@ export type Options = {
 }
 
 /**
- * Load process.env into class instance and convert string values according to field types.
+ * Load process.env into class instance by convention and convert string values according to field types,
+ * also validate the loaded class instance with `class-validator` annotations and return errors.
  *
  * @param cls - Class constructor
  * @param instance - Optional class instance (with default values) to load `process.env` into,
@@ -42,7 +43,8 @@ export type Options = {
  * @returns errs - validation errors returned by `class-validator`'s `validateSync` function
  * @returns c - The `instance` parameter or a newly created `cls` instance loaded with `process.env`
  */
-export function envToClass<T>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function envToClass<T extends Object>(
   cls: ClassConstructor<T>,
   instance = new cls(),
   options?: Options,
@@ -56,7 +58,7 @@ export function envToClass<T>(
     ...options?.classTransformer,
     enableImplicitConversion: true,
   })
-  const errs = validateSync(cls, c)
+  const errs = validateSync(c)
   return [errs, c]
 }
 

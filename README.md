@@ -1,6 +1,6 @@
 # env-to-class
 
-Load `process.env` into class instance by convention
+Load `process.env` into class instance by convention and validate with `class-validator` annotations
 
 ## Example classes and corresponding environment variable names that will be loaded
 
