@@ -69,19 +69,19 @@ export function envToClass<T>(
  * to mitigate that, envToObject will first convert string 'true'/'false' to boolean true/false,
  * so that `class-transformer` can converts boolean true/false back to string 'true'/'false' for string fields.
  *
- * @param obj - The class instance to load `process.env` into
+ * @param instance - The class instance to load `process.env` into
  * @param envPrefix - See {@link Options.envPrefix}
  * @param overrideExistingValues - See {@link Options.overrideExistingValues}
  */
 export function envToObject(
   // eslint-disable-next-line @typescript-eslint/ban-types
-  obj: object,
+  instance: object,
   envPrefix = '',
   overrideExistingValues = true,
 ): void {
-  const record = obj as Record<string, unknown>
+  const record = instance as Record<string, unknown>
   envPrefix = envPrefix.trim()
-  for (const k in obj) {
+  Object.keys(instance).forEach((k) => {
     const envKey =
       (envPrefix === '' ? '' : envPrefix + '_') +
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
@@ -95,5 +95,5 @@ export function envToObject(
         record[k] = val === 'true' ? true : val === 'false' ? false : val
       }
     }
-  }
+  })
 }
