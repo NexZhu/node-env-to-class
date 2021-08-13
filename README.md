@@ -15,7 +15,7 @@ class Nested {
 
 class Cls {
    @ValidateNested
-   qux: Nested = new Nested() 
+   qux: Nested = new Nested() // Default values are necessary for nested class fields
 
    @IsBoolean()
    quux: boolean // QUUX
@@ -89,7 +89,7 @@ class Parent {
    boolParent = false
 
    @ValidateNested()
-   nestedParent: Nested = new Nested()
+   nestedParent: Nested = new Nested() // Default values are necessary for nested class fields
 }
 
 class Child extends Parent {
@@ -106,11 +106,11 @@ class Child extends Parent {
    boolChild!: boolean
 
    @ValidateNested()
-   nestedChild: Nested = new Nested()
+   nestedChild: Nested = new Nested() // Default values are necessary for nested class fields
 }
 ```
 
-> Note that both the TypeScript type annotations and the `class-validator` decorators are required.
+> :exclamation: Note that both the TypeScript type annotations and the `class-validator` decorators are required. Default values are necessary for nested class fields.
 
 Then use `envToClass` to load `process.env` into a class instance:
 
