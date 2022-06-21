@@ -1,4 +1,4 @@
-import type { Options } from 'tsup'
+import { type Options } from 'tsup'
 import { esbuildDecorators } from '@anatine/esbuild-decorators'
 
 export const tsup: Options = {

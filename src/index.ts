@@ -1,1 +1,1 @@
-export { Options, envToClass } from './impl'
+export { Options, envToClass } from './impl.js'

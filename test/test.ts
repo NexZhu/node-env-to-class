@@ -1,3 +1,4 @@
+import assert from 'assert'
 import 'reflect-metadata'
 import {
   IsBoolean,
@@ -6,7 +7,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator'
-import { envToClass, envToObject } from './impl'
+
+import { envToClass, envToObject } from '../src/impl.js'
 
 class Nested {
   @IsString()
@@ -174,46 +176,52 @@ const CLASS_WITH_DEFAULT_VALUES: Child = {
   },
 }
 
-test('envToObject', () => {
+console.log('test: envToObject')
+{
   process.env = PROCESS_ENV
   const obj = new Child()
   envToObject(obj)
-  expect(obj).toEqual(OBJ)
-})
+  assert.deepEqual(obj, OBJ)
+}
 
-test('envToObject with envPrefix', () => {
+console.log('test: envToObject with envPrefix')
+{
   process.env = PROCESS_ENV_PREFIXED
   const obj = new Child()
   envToObject(obj, PREFIX)
-  expect(obj).toEqual(OBJ)
-})
+  assert.deepEqual(obj, OBJ)
+}
 
-test('envToObject keep pre-existing values', () => {
+console.log('test: envToObject keep pre-existing values')
+{
   process.env = PROCESS_ENV
   const obj = new Child()
   envToObject(obj, '', false)
-  expect(obj).toEqual(OBJ_WITH_DEFAULT_VALUES)
-})
+  assert.deepEqual(obj, OBJ_WITH_DEFAULT_VALUES)
+}
 
-test('envToClass', () => {
+console.log('test: envToClass')
+{
   process.env = PROCESS_ENV
   const [errs, c] = envToClass(Child)
-  expect(errs).toEqual([])
-  expect(c).toEqual(CLASS)
-})
+  assert.deepEqual(errs, [])
+  assert.deepEqual(c, CLASS)
+}
 
-test('envToClass with envPrefix', () => {
+console.log('test: envToClass with envPrefix')
+{
   process.env = PROCESS_ENV_PREFIXED
   const [errs, c] = envToClass(Child, undefined, { envPrefix: PREFIX })
-  expect(errs).toEqual([])
-  expect(c).toEqual(CLASS)
-})
+  assert.deepEqual(errs, [])
+  assert.deepEqual(c, CLASS)
+}
 
-test('envToClass keep pre-existing values', () => {
+console.log('test: envToClass keep pre-existing values')
+{
   process.env = PROCESS_ENV
   const [errs, c] = envToClass(Child, undefined, {
     overrideExistingValues: false,
   })
-  expect(errs).toEqual([])
-  expect(c).toEqual(CLASS_WITH_DEFAULT_VALUES)
-})
+  assert.deepEqual(errs, [])
+  assert.deepEqual(c, CLASS_WITH_DEFAULT_VALUES)
+}
